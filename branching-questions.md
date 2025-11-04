@@ -4,6 +4,40 @@
 
 Conversational discovery with follow-up questions based on answers. NOT a static questionnaire - each answer informs the next question.
 
+## Multi-Job Context
+
+When running discovery for multiple jobs (multi-job mode), provide context about which jobs the gap appears in:
+
+**Template:**
+```
+"{SKILL} experience appears in {N} of your target jobs ({Company1}, {Company2}, ...).
+
+This is a {HIGH/MEDIUM/LOW}-LEVERAGE gap - addressing it helps {N/some/one} application(s).
+
+Current best match: {X}% confidence ('{best_match_text}')
+
+{Standard branching question}"
+```
+
+**Leverage Classification:**
+- HIGH-LEVERAGE: Appears in 3+ jobs (critical gaps)
+- MEDIUM-LEVERAGE: Appears in 2 jobs (important gaps)
+- LOW-LEVERAGE: Appears in 1 job (job-specific gaps)
+
+**Example:**
+
+```
+"Cross-functional leadership appears in 2 of your target jobs (Microsoft, Google).
+
+This is a MEDIUM-LEVERAGE gap - addressing it helps 2 applications.
+
+Current best match: 67% confidence ('Led team of 3 engineers on AI project')
+
+Tell me about times you've led or coordinated across multiple teams or functions."
+```
+
+After providing context, proceed with standard branching patterns below.
+
 ## Technical Skill Gap Pattern
 
 **Template:**

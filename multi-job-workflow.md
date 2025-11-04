@@ -302,3 +302,231 @@ Recommendation: Option 1 or 3 (review then start)"
 ```
 
 **Checkpoint:** User chooses next action before proceeding.
+
+## Phase 2: Shared Experience Discovery
+
+**Goal:** Surface undocumented experiences across all gaps through single conversational session
+
+**Core Principle:** Same branching interview from branching-questions.md, but with multi-job context for each question.
+
+**Session Flow:**
+
+**2.1 Start with Highest-Leverage Gaps:**
+
+Process gaps in priority order:
+1. Critical gaps (appear in 3+ jobs) - 5-7 min each
+2. Important gaps (appear in 2 jobs) - 3-5 min each
+3. Job-specific gaps - 2-3 min each
+
+**2.2 Multi-Job Contextualized Questions:**
+
+For each gap, provide multi-job context before branching interview:
+
+**Single-Job Version (from branching-questions.md):**
+```
+"I noticed the job requires Kubernetes experience. Have you worked with Kubernetes?"
+```
+
+**Multi-Job Version (new):**
+```
+"Kubernetes experience appears in 3 of your target jobs (Microsoft, Google, AWS).
+
+This is a HIGH-LEVERAGE gap - addressing it helps multiple applications.
+
+Current best match: 45% confidence ('Deployed containerized app for nonprofit')
+
+Have you worked with Kubernetes or container orchestration?"
+```
+
+**2.3 Conduct Branching Interview:**
+
+For each gap:
+1. Initial probe with multi-job context (see above)
+2. Branch based on answer using branching-questions.md patterns:
+   - YES → Deep dive (scale, challenges, metrics)
+   - INDIRECT → Explore role and transferability
+   - ADJACENT → Explore related experience
+   - PERSONAL → Assess recency and substance
+   - NO → Try broader category or move on
+
+3. Follow up systematically:
+   - "What," "how," "why" questions
+   - Quantify: "Any metrics?"
+   - Contextualize: "Was this production?"
+   - Validate: "This addresses {gap} for {jobs}"
+
+4. Capture immediately with job tags:
+
+**2.4 Capture Structure:**
+
+As experiences are discovered, capture to `_discovered_experiences.md`:
+
+```markdown
+# Discovered Experiences
+**Batch:** batch-2025-11-04-job-search
+**Discovery Date:** 2025-11-04T11:30:00Z
+
+## Experience 1: Kubernetes CI/CD for nonprofit project
+
+**Context:** Side project, 2023-2024, production deployment
+
+**Scope:**
+- GitHub Actions pipeline with Kubernetes deployments
+- 3 nonprofit organizations using it
+- Integrated pytest for testing
+- Managed scaling and monitoring
+
+**Metrics:**
+- 3 production deployments
+- 99.9% uptime over 12 months
+- Reduced deployment time from 2 hours to 15 minutes
+
+**Addresses gaps in:**
+- Jobs 1, 2, 3: Kubernetes at scale
+- Jobs 1, 2: CI/CD pipeline management
+
+**Confidence Improvement:**
+- Kubernetes: 45% → 75% (+30%)
+- CI/CD: 58% → 82% (+24%)
+
+**Bullet Draft:**
+"Designed and implemented Kubernetes-based CI/CD pipeline using GitHub Actions
+and pytest, supporting production deployments for 3 nonprofit organizations with
+99.9% uptime and 87% reduction in deployment time"
+
+**Integration Decision:** [Pending user approval]
+
+---
+
+## Experience 2: Azure migration for university lab
+
+**Context:** Graduate research, 2022-2023
+
+**Scope:**
+- Migrated on-premise compute to Azure VMs
+- Set up Azure DevOps for lab
+- Managed costs and resource allocation
+
+**Metrics:**
+- Migrated 15 TB of data
+- Reduced compute costs by 40%
+- Supported 25 researchers
+
+**Addresses gaps in:**
+- Job 1 only: Azure-specific experience
+
+**Confidence Improvement:**
+- Azure: 40% → 70% (+30%)
+
+**Bullet Draft:**
+"Led Azure cloud migration for university research lab, migrating 15 TB of data
+and implementing Azure DevOps, reducing compute costs by 40% while supporting
+25 researchers"
+
+**Integration Decision:** [Pending user approval]
+```
+
+**2.5 Track Coverage Improvement in Real-Time:**
+
+After each discovery, update user:
+
+```
+"Great! That addresses Kubernetes for all 3 jobs.
+
+UPDATED COVERAGE:
+- Job 1 (Microsoft): 68% → 78% (+10%)
+- Job 2 (Google): 72% → 82% (+10%)
+- Job 3 (AWS): 65% → 75% (+10%)
+
+Remaining critical gaps: 2 (down from 3)
+
+Continue with next gap? (Y/N)"
+```
+
+**2.6 Integration Decision Per Experience:**
+
+After discovery session complete:
+
+```
+"Excellent! I captured 5 new experiences addressing gaps across your jobs.
+
+For each experience, how should I integrate it?
+
+---
+EXPERIENCE 1: Kubernetes CI/CD for nonprofit project
+├─ Addresses: Jobs 1, 2, 3
+└─ Options:
+   1. ADD TO LIBRARY FOR ALL JOBS - Integrate and use everywhere
+   2. ADD TO LIBRARY, USE SELECTIVELY - User picks which jobs
+   3. SKIP - Don't integrate
+
+Your choice for Experience 1? (1/2/3)
+
+---
+EXPERIENCE 2: Azure migration for university lab
+├─ Addresses: Job 1 only
+└─ Options:
+   1. ADD TO LIBRARY - Integrate for Job 1
+   2. SKIP - Not needed
+
+Your choice for Experience 2? (1/2)
+```
+
+**2.7 Enrich Library:**
+
+For each approved experience:
+1. Add to library database
+2. Tag with metadata:
+   - discovered_date
+   - addressed_gaps
+   - used_in_jobs
+   - confidence_improvement
+
+**2.8 Update Batch State:**
+
+```json
+{
+  "current_phase": "discovery",
+  "discoveries": [
+    {
+      "experience_id": "disc-1",
+      "text": "Kubernetes CI/CD for nonprofit project",
+      "context": "Side project, 2023-2024, production",
+      "scope": "GitHub Actions, 3 nonprofits, pytest, monitoring",
+      "addresses_jobs": ["job-1", "job-2", "job-3"],
+      "addresses_gaps": ["Kubernetes", "CI/CD"],
+      "confidence_improvement": {
+        "Kubernetes": {"before": 45, "after": 75},
+        "CI/CD": {"before": 58, "after": 82}
+      },
+      "integrated": true,
+      "bullet_draft": "Designed and implemented..."
+    }
+  ]
+}
+```
+
+**Output:**
+
+```
+"Discovery complete!
+
+SUMMARY:
+- New experiences captured: 5
+- Experiences integrated: 5
+- Average coverage improvement: +16%
+
+FINAL COVERAGE:
+- Job 1 (Microsoft): 68% → 85% (+17%)
+- Job 2 (Google): 72% → 88% (+16%)
+- Job 3 (AWS): 65% → 78% (+13%)
+
+Remaining gaps: 5 (down from 14)
+├─ 0 critical gaps ✓
+├─ 2 important gaps
+└─ 3 job-specific gaps
+
+Ready to proceed with per-job processing? (Y/N)"
+```
+
+**Checkpoint:** User approves before moving to per-job processing.
