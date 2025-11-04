@@ -530,3 +530,206 @@ Ready to proceed with per-job processing? (Y/N)"
 ```
 
 **Checkpoint:** User approves before moving to per-job processing.
+
+## Phase 3: Per-Job Processing
+
+**Goal:** Process each job independently through research/template/matching/generation
+
+**Key Insight:** Once discovery is complete, each job can be processed independently using enriched library.
+
+**Processing Modes:**
+
+Before starting, ask user:
+
+```
+"Discovery complete! Now processing each job individually.
+
+PROCESSING MODE:
+1. INTERACTIVE (default) - I'll show you checkpoints for each job
+   (template approval, content mapping approval)
+
+2. EXPRESS - I'll auto-approve templates and matching using best judgment,
+   you review all final resumes together
+
+Recommendation: INTERACTIVE for first 1-2 jobs, then switch to EXPRESS
+if you like the pattern.
+
+Which mode for Job 1? (1/2)"
+```
+
+**3.1 Per-Job Loop:**
+
+For each job in batch (job.status == "pending"):
+
+1. Set job.status = "in_progress"
+2. Set job.current_phase = "research"
+3. Create job directory: `resumes/batches/{batch_id}/job-{N}-{company-slug}/`
+4. Process through phases (see below)
+5. Set job.status = "completed"
+6. Set job.files_generated = true
+7. Move to next job
+
+**3.2 Phase 3A: Research (Per-Job)**
+
+**Same depth as single-job workflow (SKILL.md Phase 1):**
+
+```
+Job {N}/{total}: {Company} - {Role}
+├─ Company research via WebSearch (mission, values, culture, news)
+├─ Role benchmarking via LinkedIn (find 3-5 similar role holders)
+├─ Success profile synthesis
+└─ Checkpoint (if INTERACTIVE mode): Present success profile to user
+```
+
+Save to: `job-{N}-{company-slug}/success_profile.md`
+
+**INTERACTIVE Mode:**
+```
+"Job 1: Microsoft - Principal PM
+
+Based on my research, here's what makes candidates successful for this role:
+
+{SUCCESS_PROFILE_SUMMARY}
+
+Key findings:
+- {Finding 1}
+- {Finding 2}
+- {Finding 3}
+
+Does this match your understanding? Any adjustments?
+
+(Y to proceed / provide feedback)"
+```
+
+**EXPRESS Mode:**
+- Generate success profile
+- Save to file
+- Proceed automatically (no checkpoint)
+
+**3.3 Phase 3B: Template Generation (Per-Job)**
+
+**Same process as single-job workflow (SKILL.md Phase 2):**
+
+```
+├─ Role consolidation decisions
+├─ Title reframing options
+├─ Bullet allocation
+└─ Checkpoint (if INTERACTIVE): Approve template structure
+```
+
+Save to: `job-{N}-{company-slug}/template.md`
+
+**INTERACTIVE Mode:**
+```
+"Here's the optimized resume structure for {Company} - {Role}:
+
+STRUCTURE:
+{Section order and rationale}
+
+ROLE CONSOLIDATION:
+{Decisions with options}
+
+TITLE REFRAMING:
+{Proposed titles with alternatives}
+
+BULLET ALLOCATION:
+{Allocation with rationale}
+
+Approve? (Y/N/adjust)"
+```
+
+**EXPRESS Mode:**
+- Generate template using best judgment
+- Save to file
+- Proceed automatically
+
+**3.4 Phase 3C: Content Matching (Per-Job)**
+
+**Same process as single-job workflow (SKILL.md Phase 3):**
+
+Uses enriched library (includes discovered experiences from Phase 2)
+
+```
+├─ Match content to template slots
+├─ Confidence scoring (Direct/Transferable/Adjacent)
+├─ Reframing suggestions
+├─ Gap identification (should be minimal after discovery)
+└─ Checkpoint (if INTERACTIVE): Approve content mapping
+```
+
+Save to: `job-{N}-{company-slug}/content_mapping.md`
+
+**INTERACTIVE Mode:**
+```
+"Content matched for {Company} - {Role}:
+
+COVERAGE SUMMARY:
+- Direct matches: {N} bullets ({%}%)
+- Transferable: {N} bullets ({%}%)
+- Adjacent: {N} bullets ({%}%)
+- Gaps: {N} ({%}%)
+
+OVERALL JD COVERAGE: {%}%
+
+[Show detailed mapping]
+
+Approve? (Y/N/adjust)"
+```
+
+**EXPRESS Mode:**
+- Generate mapping automatically
+- Use highest confidence matches
+- Save to file
+- Proceed automatically
+
+**3.5 Phase 3D: Generation (Per-Job)**
+
+**Same process as single-job workflow (SKILL.md Phase 4):**
+
+```
+├─ Generate Markdown resume
+├─ Generate DOCX resume (using document-skills:docx)
+├─ Generate Report
+└─ No checkpoint - just generate files
+```
+
+Output files:
+- `{Name}_{Company}_{Role}_Resume.md`
+- `{Name}_{Company}_{Role}_Resume.docx`
+- `{Name}_{Company}_{Role}_Resume_Report.md`
+
+All saved to: `job-{N}-{company-slug}/`
+
+**3.6 Progress Tracking:**
+
+After each job completes:
+
+```
+"✓ Job {N}/{total} complete: {Company} - {Role}
+
+QUALITY METRICS:
+- JD Coverage: {%}%
+- Direct Matches: {%}%
+- Files: ✓ MD ✓ DOCX ✓ Report
+
+Jobs remaining: {total - N}
+Estimated time: ~{N * 8} minutes
+
+Continue to Job {N+1}? (Y/N/pause)"
+```
+
+**3.7 Pause/Resume Support:**
+
+If user says "pause":
+```
+"Progress saved!
+
+CURRENT STATE:
+- Jobs completed: {N}
+- Jobs remaining: {total - N}
+- Next: Job {N+1} - {Company} - {Role}
+
+To resume later, say 'resume batch {batch_id}' or 'continue my batch'."
+```
+
+Save batch state with current progress.
