@@ -312,8 +312,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/varunramesh/resume-tailoring-skill/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/varunramesh/resume-tailoring-skill/discussions)
+- **Issues:** [GitHub Issues](https://github.com/varunr89/resume-tailoring-skill/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/varunr89/resume-tailoring-skill/discussions)
 
 ## Roadmap
 

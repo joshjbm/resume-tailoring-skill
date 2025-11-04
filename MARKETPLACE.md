@@ -32,7 +32,7 @@ Transform your job search with AI-powered resume tailoring that goes beyond simp
 ## Installation
 
 ```bash
-git clone https://github.com/varunramesh/resume-tailoring-skill.git ~/.claude/skills/resume-tailoring
+git clone https://github.com/varunr89/resume-tailoring-skill.git ~/.claude/skills/resume-tailoring
 ```
 
 ## Usage
@@ -70,9 +70,9 @@ The skill guides you through:
 
 ## Support & Documentation
 
-- **GitHub:** https://github.com/varunramesh/resume-tailoring-skill
+- **GitHub:** https://github.com/varunr89/resume-tailoring-skill
 - **Documentation:** See README.md for full documentation
-- **Issues:** https://github.com/varunramesh/resume-tailoring-skill/issues
+- **Issues:** https://github.com/varunr89/resume-tailoring-skill/issues
 
 ## License
 
@@ -81,8 +81,7 @@ MIT License
 ## Author
 
 Varun Ramesh
-- GitHub: @varunramesh
-- Twitter: @varunramesh (if applicable)
+- GitHub: @varunr89
 
 ## Version History
 
