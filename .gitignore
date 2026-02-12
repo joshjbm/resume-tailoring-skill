@@ -18,6 +18,8 @@ test-outputs/
 
 # Git worktrees
 .worktrees/
+mydocs/
+/mydocs/**
 
 # Documents
 *.doc
