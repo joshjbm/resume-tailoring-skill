@@ -20,6 +20,8 @@ test-outputs/
 .worktrees/
 mydocs/
 /mydocs/**
+myjds/
+/myjds/**
 
 # Documents
 *.doc
