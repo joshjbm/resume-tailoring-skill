@@ -18,3 +18,12 @@ test-outputs/
 
 # Git worktrees
 .worktrees/
+
+# Documents
+*.doc
+*.docx
+*.pdf
+
+# Personal-name filenames (basename match anywhere in repo)
+*[Jj][Oo][Ss][Hh]*
+*[Mm][Aa][Cc][Kk][Ii][Ee]*
